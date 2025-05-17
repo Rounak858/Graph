@@ -3,13 +3,13 @@ using namespace std;
 
 class Solution {
     public:
-    vector<int> dijkstra(int v, vector<vector<int>>adj[] ,int s) {
+    static vector<int> dijkstra(int v, vector<vector<int>>adj[] ,int s) {
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
         vector<int>distance(v,INT_MAX);
         // for(int i = 0; i < v; i++) distance[i] = 1e9;
 
         distance[s] = 0;
-        pq.push({0,s});
+        pq.emplace(0,s);
 
         while(!pq.empty()) {
             int dis = pq.top().first;
@@ -21,7 +21,7 @@ class Solution {
                 int adjNode = it[0];
                 if(dis + edgeWeight < distance[adjNode]) {
                     distance[adjNode] = dis + edgeWeight;
-                    pq.push({distance[adjNode],adjNode});
+                    pq.emplace(distance[adjNode],adjNode);
                 }
             }
         }
@@ -32,12 +32,11 @@ class Solution {
 int main()
 {
     // Time Complexity = O(Elog(V)) {E  = number of edges, and V = number of nodes}
-    // Space Comeplexity = O(|E| + |V|) {E  = number of edges, and V = number of nodes}
-    constexpr int V = 3, E = 3, S = 2;
+    // Space Complexity = O(|E| + |V|) {E  = number of edges, and V = number of nodes}
+    constexpr int V = 3, S = 2;
     vector<vector<int>> adj[V];
     vector<vector<int>> edges;
     vector<int> v1{1, 1}, v2{2, 6}, v3{2, 3}, v4{0, 1}, v5{1, 3}, v6{0, 6};
-    int i = 0;
     adj[0].push_back(v1);
     adj[0].push_back(v2);
     adj[1].push_back(v3);
